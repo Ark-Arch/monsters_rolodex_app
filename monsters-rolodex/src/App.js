@@ -4,6 +4,7 @@ import './App.css';
 class App extends Component{
 
   constructor(){
+    console.log('construct')
     super();
     this.state = {
       monsters:[],
@@ -11,13 +12,21 @@ class App extends Component{
   }
 
   componentDidMount(){
+    console.log('API call')
     fetch('https://jsonplaceholder.typicode.com/users')
-          .then(response => response.json())
-          .then(json => console.log(json)) 
-          .catch(rejectedValue => console.log('I failed to fetch'))
-    }
+        .then((response) => response.json())
+        .then((users) => this.setState(
+          () => {
+            return {monsters:users}
+          },
+          () => {
+            console.log(this.state)
+          }
+        ))
+  }
 
   render(){
+    console.log('render method')
       return (
         <div className="App">
           {
