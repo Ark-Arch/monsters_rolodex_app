@@ -31,6 +31,9 @@ class App extends Component{
         <div className="App">
           <input className='search-box' type='search' placeholder='search monsters' onChange={(event)=>{
             console.log(event)
+            this.setState(()=>{
+      
+            })
           }} />
           {
             this.state.monsters.map((monster)=>{
