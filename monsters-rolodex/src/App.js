@@ -1,56 +1,58 @@
-import { Component } from 'react';
-import './App.css';
+// create a react component using a class rather than a function.
+import React from 'react';
+import './App.css'
 
-class App extends Component{
-
-  constructor(){
-    console.log('construct')
-    super();
-    this.state = {
-      monsters:[],
+class App extends React.Component{
+    constructor(){
+        super();
+        this.state = {
+            monsters:[]
+        }
     };
-  }
 
-  componentDidMount(){
-    console.log('API call')
-    fetch('https://jsonplaceholder.typicode.com/users')
-        .then((response) => response.json())
-        .then((users) => this.setState(
-          () => {
-            return {monsters:users}
-          },
-          () => {
-            console.log(this.state)
-          }
-        ))
-  }
+    componentDidMount(){
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then((response) => response.json())
+            .then((users) => 
+                this.setState(
+                    ()=>{
+                        return {monsters:users}
+                    },
+                    () => {/**/}
+                )
+                )
+    };
 
-  render(){
-    console.log('render method')
-      return (
-        <div className="App">
-          <input className='search-box' type='search' placeholder='search monsters' onChange={(event)=>{
-            console.log(event)
-            this.setState(()=>{
-      
-            })
-          }} />
-          {
-            this.state.monsters.map((monster)=>{
-              return <h1 key={monster.name}>{monster.name}</h1>
-            })
-          }
-        </div>
-      );
+    render(){
+        console.log('render method')
+        return(
+            <div className='App'>
+                <input className='search-box' type='search' placeholder='search rolodex' onChange={(event)=>{
+                    this.setState(
+                        (state,props) => {
+                            const filteredMonsters = state.monsters.filter((monster) => monster.name.toLowerCase().includes(event.target.value))
+                            return {monsters:filteredMonsters}
+                        },
+                        () => {
+                        }
+                    )
+                }}/>
+
+                {
+                    this.state.monsters.map(monster => {
+                        return(
+                            <div key={monster.id}>
+                                <h1>{monster.name}</h1>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        )
     }
-  }
-    
+}
 
-export default App;
-
-
-
-
+export default App
 
 
 // render(){
@@ -76,3 +78,4 @@ export default App;
     //     </div>
     //   )
     // }
+//
