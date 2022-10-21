@@ -1,51 +1,52 @@
 // create a react component using a class rather than a function.
-import React from 'react';
+import React from 'react'
 import './App.css'
 
 class App extends React.Component{
     constructor(){
         super();
+
         this.state = {
-            monsters:[]
+            monsters:[],
+            searchField:''
         }
-    };
+    }
 
     componentDidMount(){
         fetch('https://jsonplaceholder.typicode.com/users')
-            .then((response) => response.json())
-            .then((users) => 
+            .then(response=>response.json())
+            .then(users => {return(
                 this.setState(
-                    ()=>{
-                        return {monsters:users}
-                    },
-                    () => {/**/}
+                    () => {
+                        return(
+                            {monsters:users}
+                        )
+                    }
                 )
-                )
-    };
+            )})
+    }
+
+    onSearchChange = (event) => {
+        const searchField = event.target.value.toLocaleLowerCase()
+        return (
+            this.setState(
+                () => {
+                    return(
+                        {searchField}
+                    )
+                }
+            )
+        )
+    }
 
     render(){
-        console.log('render method')
+        const filteredMonsters = this.state.monsters.filter(monster => monster.name.toLocaleLowerCase().includes(this.state.searchField))
         return(
             <div className='App'>
-                <input className='search-box' type='search' placeholder='search rolodex' onChange={(event)=>{
-                    this.setState(
-                        (state,props) => {
-                            const filteredMonsters = state.monsters.filter((monster) => monster.name.toLowerCase().includes(event.target.value))
-                            return {monsters:filteredMonsters}
-                        },
-                        () => {
-                        }
-                    )
-                }}/>
+                <input className='search-box' type='search' placeholder='search rolodex' onChange={this.onSearchChange}/>
 
                 {
-                    this.state.monsters.map(monster => {
-                        return(
-                            <div key={monster.id}>
-                                <h1>{monster.name}</h1>
-                            </div>
-                        )
-                    })
+                    filteredMonsters.map(monster => <div key={monster.id}><h1>{monster.name}</h1></div>)
                 }
             </div>
         )
