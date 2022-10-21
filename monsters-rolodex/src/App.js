@@ -40,10 +40,15 @@ class App extends React.Component{
     }
 
     render(){
-        const filteredMonsters = this.state.monsters.filter(monster => monster.name.toLocaleLowerCase().includes(this.state.searchField))
+
+        /* DESTRUCTURING */
+        const {monsters, searchField} = this.state;
+        const {onSearchChange} = this;
+
+        const filteredMonsters = monsters.filter(monster => monster.name.toLocaleLowerCase().includes(searchField))
         return(
             <div className='App'>
-                <input className='search-box' type='search' placeholder='search rolodex' onChange={this.onSearchChange}/>
+                <input className='search-box' type='search' placeholder='search rolodex' onChange={onSearchChange}/>
 
                 {
                     filteredMonsters.map(monster => <div key={monster.id}><h1>{monster.name}</h1></div>)
