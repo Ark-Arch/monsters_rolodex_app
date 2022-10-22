@@ -1,6 +1,8 @@
 // create a react component using a class rather than a function.
 import React from 'react'
+import CardList from './components/card-list/card-list.component'
 import './App.css'
+
 
 class App extends React.Component{
     constructor(){
@@ -26,7 +28,7 @@ class App extends React.Component{
             )})
     }
 
-    onSearchChange = (event) => {
+    onSearchChange = (event) => {   
         const searchField = event.target.value.toLocaleLowerCase()
         return (
             this.setState(
@@ -40,7 +42,6 @@ class App extends React.Component{
     }
 
     render(){
-
         /* DESTRUCTURING */
         const {monsters, searchField} = this.state;
         const {onSearchChange} = this;
@@ -49,39 +50,10 @@ class App extends React.Component{
         return(
             <div className='App'>
                 <input className='search-box' type='search' placeholder='search rolodex' onChange={onSearchChange}/>
-
-                {
-                    filteredMonsters.map(monster => <div key={monster.id}><h1>{monster.name}</h1></div>)
-                }
+                <CardList monsters={filteredMonsters}/>
             </div>
         )
     }
 }
 
 export default App
-
-
-// render(){
-    //   return (
-    //     <div>
-    //       <h1>Hi! My name is {this.state.name.firstName} {this.state.name.lastName}</h1>
-    //       <p>...and I work at {this.state.company}</p>
-    //       <button 
-    //         onClick={()=>{
-    //           this.setState(
-    //             (state,props) => {
-    //               return {name:{firstName:'Femi'},
-    //                     company:'FaceBook'}
-    //             },
-    //             () => {
-    //               //call a secondary callBack() function.
-    //             }
-    //           )  
-    //       }
-    //       }>
-    //         Change Me Once
-    //         </button>
-    //     </div>
-    //   )
-    // }
-//
