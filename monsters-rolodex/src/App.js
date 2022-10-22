@@ -1,6 +1,7 @@
 // create a react component using a class rather than a function.
 import React from 'react'
 import CardList from './components/card-list/card-list.component'
+import SearchBox from './components/search-box/search-box.component';
 import './App.css'
 
 
@@ -28,7 +29,7 @@ class App extends React.Component{
             )})
     }
 
-    onSearchChange = (event) => {   
+    onSearchChange = (event) => {         // this is basically some sort of an handler
         const searchField = event.target.value.toLocaleLowerCase()
         return (
             this.setState(
@@ -49,7 +50,7 @@ class App extends React.Component{
         const filteredMonsters = monsters.filter(monster => monster.name.toLocaleLowerCase().includes(searchField))
         return(
             <div className='App'>
-                <input className='search-box' type='search' placeholder='search rolodex' onChange={onSearchChange}/>
+                <SearchBox className='search-box' onChangeHandler={onSearchChange} placeholder='search monsters'/>
                 <CardList monsters={filteredMonsters}/>
             </div>
         )
