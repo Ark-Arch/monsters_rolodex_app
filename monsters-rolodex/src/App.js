@@ -50,7 +50,7 @@ class App extends React.Component{
         const filteredMonsters = monsters.filter(monster => monster.name.toLocaleLowerCase().includes(searchField))
         return(
             <div className='App'>
-                <SearchBox className='search-box' onChangeHandler={onSearchChange} placeholder='search monsters'/>
+                <SearchBox className='monsters-search-box' onChangeHandler={onSearchChange} placeholder='search monsters'/>
                 <CardList monsters={filteredMonsters}/>
             </div>
         )
